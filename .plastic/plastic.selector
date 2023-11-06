@@ -1,0 +1,4 @@
+repository "RaceGame@myyfeedi@cloud"
+  path "/"
+    br "/main"
+    co "/main"
