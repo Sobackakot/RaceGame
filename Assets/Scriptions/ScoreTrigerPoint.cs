@@ -1,17 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+ 
 using TMPro;
-using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine; 
 
 public class ScoreTrigerPoint : MonoBehaviour
 { 
     [SerializeField] private TextMeshProUGUI score;
 
+    [SerializeField] private TextMeshProUGUI time;
+
+    private float second = 0;
+    private int currentMinutes = 0;
+
     private int currentScore = 0;
+    private void Update()
+    {
+        UpdateTime();   
+    }
     public  void IncreaseScore()
     {
         currentScore += 1;
-        score.text = currentScore.ToString(); 
-    }  
+        score.text = "Score: " + currentScore.ToString(); 
+    }
+    private void UpdateTime()
+    {
+        second += Time.deltaTime;
+
+        if (second >= 60)
+        {
+            currentMinutes += 1;
+            second -= 60f;
+        } 
+        time.text = string.Format("{0:00}:{1:00}", currentMinutes, second); 
+    }
 }
