@@ -983,7 +983,6 @@ GameObject:
   - component: {fileID: 2477462266390351404}
   - component: {fileID: 5400846932832599726}
   - component: {fileID: 740484873030374555}
-  - component: {fileID: 5615927785952658508}
   m_Layer: 0
   m_Name: CarWaypointBased
   m_TagString: Player
@@ -1152,14 +1151,6 @@ MonoBehaviour:
   maxRolloffDistance: 500
   dopplerLevel: 1
   useDoppler: 1
---- !u!81 &5615927785952658508
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2455033175186019023}
-  m_Enabled: 1
 --- !u!1 &2510170546610212957
 GameObject:
   m_ObjectHideFlags: 0

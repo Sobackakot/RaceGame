@@ -10,7 +10,7 @@ public class ScoreTrigerPoint : MonoBehaviour
 
     [SerializeField] private GameObject gameOver;
 
-    private float second = 0;
+    private float seconds = 0;
     private int currentMinutes = 0;
 
     private int currentScore = 0;
@@ -30,22 +30,23 @@ public class ScoreTrigerPoint : MonoBehaviour
     }
     private void UpdateTime()
     {
-        second += Time.deltaTime;
+        seconds += Time.deltaTime;
 
-        if (second >= 60)
+        if (seconds >= 60)
         {
             currentMinutes += 1;
-            second -= 60f;
+            seconds -= 60f;
         } 
-        time.text = string.Format("{0:00}:{1:00}", currentMinutes, second);
+        time.text = string.Format("{0:00}:{1:00}", currentMinutes, seconds); 
         CheckTimer();
     }
     private void CheckTimer()
     {
-        if(currentMinutes >= 2)
+        if(currentMinutes >= 3)
         {
             gameOver.SetActive(true);
             Time.timeScale = 0f;
+            
         }
     }
 }
