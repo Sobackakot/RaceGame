@@ -149,8 +149,8 @@ namespace TMPro.Examples
                 // Check for right mouse button to change camera follow and elevation angle
                 if (Input.GetMouseButton(1))
                 {
-                    mouseY = Input.GetAxis("Mouse Y");
-                    mouseX = Input.GetAxis("Mouse X");
+                    mouseY = Input.GetAxis("Mouse vertical");
+                    mouseX = Input.GetAxis("Mouse horizontal");
 
                     if (mouseY > 0.01f || mouseY < -0.01f)
                     {
@@ -242,8 +242,8 @@ namespace TMPro.Examples
                     }
 
 
-                    mouseY = Input.GetAxis("Mouse Y");
-                    mouseX = Input.GetAxis("Mouse X");
+                    mouseY = Input.GetAxis("Mouse vertical");
+                    mouseX = Input.GetAxis("Mouse horizontal");
 
                     moveVector = cameraTransform.TransformDirection(mouseX, mouseY, 0);
 

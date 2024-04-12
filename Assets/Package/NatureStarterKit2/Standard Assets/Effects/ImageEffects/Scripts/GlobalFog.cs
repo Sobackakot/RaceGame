@@ -16,7 +16,7 @@ namespace UnityStandardAssets.ImageEffects
 		public bool  useRadialDistance = false;
 		[Tooltip("Apply height-based fog?")]
 		public bool  heightFog = true;
-		[Tooltip("Fog top Y coordinate")]
+		[Tooltip("Fog top vertical coordinate")]
         public float height = 1.0f;
         [Range(0.001f,10.0f)]
         public float heightDensity = 2.0f;
