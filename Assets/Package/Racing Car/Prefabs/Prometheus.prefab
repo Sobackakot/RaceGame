@@ -46,8 +46,9 @@ GameObject:
   - component: {fileID: 261786959625234688}
   - component: {fileID: 5135156708204615449}
   - component: {fileID: 5221828932067938253}
-  - component: {fileID: 1531935940942183218}
   - component: {fileID: 6740646905562898840}
+  - component: {fileID: 273187895799463874}
+  - component: {fileID: 7696260107292807822}
   m_Layer: 0
   m_Name: Prometheus
   m_TagString: Player
@@ -122,26 +123,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4324942, y: 1.2693655, z: 5.300873}
   m_Center: {x: -0.0005784035, y: 0.8529912, z: -0.031425476}
---- !u!114 &1531935940942183218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642287924342879162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61497ce133afc274794d1fc58639679f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wheelsData:
-  - {fileID: 11400000, guid: 967b78225de969d4881d77326982f987, type: 2}
-  - {fileID: 11400000, guid: a4b397645364bd9469b1d5ba5d944cc2, type: 2}
-  - {fileID: 11400000, guid: 81fd7c8081b7af34c848fe12f84efdd3, type: 2}
-  - {fileID: 11400000, guid: 09f68018913201740b24ab492c5ea3df, type: 2}
-  moveFOrce: 2000
-  stopForce: 1500
-  maxAngleWheel: 45
 --- !u!114 &6740646905562898840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +136,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformChildMass: {fileID: 7151606702615989079}
+--- !u!114 &273187895799463874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642287924342879162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649efc98d33d5324288c3690c497e032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelsData:
+  - {fileID: 11400000, guid: 967b78225de969d4881d77326982f987, type: 2}
+  - {fileID: 11400000, guid: a4b397645364bd9469b1d5ba5d944cc2, type: 2}
+  - {fileID: 11400000, guid: 81fd7c8081b7af34c848fe12f84efdd3, type: 2}
+  - {fileID: 11400000, guid: 09f68018913201740b24ab492c5ea3df, type: 2}
+  moveForce: 2000
+  brakeForce: 1500
+  maxAngleWheel: 60
+  moving: 0
+  turning: 0
+--- !u!114 &7696260107292807822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642287924342879162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1befba6e0723145b703cd12bbfa8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackLine: {fileID: 0}
+  thresholdDistance: 0
 --- !u!1 &934883528070179459
 GameObject:
   m_ObjectHideFlags: 0

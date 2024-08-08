@@ -1,41 +1,35 @@
+ 
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelsMyCar : MonoBehaviour
-{    
-    public List<WheelsData> wheelsData;
-    private Vector3 axisInput;
+public class Autopilot : MonoBehaviour
+{
+    public List<WheelsData> wheelsData; 
 
-    public float moveFOrce = 2000f;
-    public float stopForce = 1500f;
+    public float moveForce = 2000f;
+    public float brakeForce = 1500f;
     public float maxAngleWheel = 60f;
+      
+    [SerializeField, Range(-1f, 1f)] public float moving; 
+    [SerializeField, Range(-1f, 1f)] public float turning;
 
     private void LateUpdate()
-    {
-        axisInput = InputKey();
-
+    {  
         // инициализируем каждое колесо трансформ и колайдер, передаем каждый трансформ и колайдер колеса все 4 клолеса 
         foreach (WheelsData wheel in wheelsData)
         {
             UpdateTransformWheels(wheel.wheelTransform, wheel.wheelCollider);
         }
+
     }
     private void FixedUpdate()
     {
-        MoveCar(axisInput);
-        StopCar();
-        TurnsCar(axisInput);
+        MoveCar(moving);
+        TurnsCar(turning);
+        BrakeCar();
     }
-       
-    private Vector3 InputKey()
-    {
-        // получаем напвравления движения при нажатии на кнопки W,A,S,D
-        float vertical = Input.GetAxis("Vertical"); // key down - W,A  = float от -1f  до 1f
-        float horizontal = Input.GetAxis("Horizontal");// key down - S,D  = float от -1f  до 1f
-        return new Vector3(horizontal, 0, vertical);
-    }
-    
-    private void TurnsCar(Vector3 axis)
+     
+    private void TurnsCar(float turn)
     {
         // поворот колес 
         foreach (WheelsData wheel in wheelsData)
@@ -44,33 +38,40 @@ public class WheelsMyCar : MonoBehaviour
             {
                 case WheelType.LeftFront:
                 case WheelType.RightFront:
-                    wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, maxAngleWheel * axis.x, 0.5f);
+                    wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, maxAngleWheel * turning, 0.5f);
                     break;
 
             }
         }
     }
 
-    private void StopCar()
+    private void BrakeCar()
     {
         // торможение
         if (Input.GetKey(KeyCode.Space))
         {
             foreach (WheelsData wheel in wheelsData)
             {
-                wheel.wheelCollider.brakeTorque = stopForce;
+                wheel.wheelCollider.brakeTorque = brakeForce;
+            }
+        }
+        else
+        {
+            foreach (WheelsData wheel in wheelsData)
+            {
+                wheel.wheelCollider.brakeTorque = 0;
             }
         }
     }
 
-    private void MoveCar(Vector3 axis)
+    private void MoveCar(float moving)
     {
         // движкение вперед и назад
         foreach (WheelsData wheel in wheelsData)
         {
-            wheel.wheelCollider.motorTorque = axis.z * moveFOrce;
+            wheel.wheelCollider.motorTorque = moving * moveForce * 0.3f;
         }
-    } 
+    }
     private void UpdateTransformWheels(Transform transform, WheelCollider collider)
     {
         collider.GetWorldPose(out Vector3 pos, out Quaternion rot); // вызываем функцию GetWorldPose
