@@ -42,14 +42,15 @@ public class MoveOnTrack : MonoBehaviour
     private void  FollowNextPoint()
     {
         Vector3 point = trackLine.waypoints[nextPoint].transform.position;
-        Vector3 targetPoint = new Vector3(point.x, transformCar.position.y, point.z);
-         Vector3 axisToTarget  = transformCar.InverseTransformPoint(targetPoint);  
-        float distanceToTarget = axisToTarget.magnitude;
+        Vector3 targetPoint = new Vector3(point.x, transformCar.position.y, point.z); 
+         Vector3 positionToTarget  = transformCar.InverseTransformPoint(targetPoint);
+         
+        float distanceToTarget = positionToTarget.magnitude;
         if(distanceToTarget <= thresholdDistance)
         {
             nextPoint = (nextPoint + 1) % trackLine.waypoints.Count;
         } 
-        carAI.turning = axisToTarget.x / distanceToTarget;
+        carAI.turning = positionToTarget.x / distanceToTarget;
         carAI.moving = 0.4f;
     }
 }
