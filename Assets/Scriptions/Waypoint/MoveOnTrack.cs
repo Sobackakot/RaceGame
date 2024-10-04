@@ -51,6 +51,6 @@ public class MoveOnTrack : MonoBehaviour
             nextPoint = (nextPoint + 1) % trackLine.waypoints.Count;
         } 
         carAI.turning = positionToTarget.x / distanceToTarget;
-        carAI.moving = 0.4f;
+        carAI.moving = 1f;
     }
 }

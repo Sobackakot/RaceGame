@@ -2,17 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CarMove : MonoBehaviour
-{    
-    public List<WheelsData> wheelsData;
-    [SerializeField] public Vector3 axisInput;
+{
+    [SerializeField] private List<WheelsData> wheelsData; 
 
-    public float moveForce = 2000f;
-    public float brakeForce = 1500f;
-    public float maxAngleWheel = 60f;
-     
+    [SerializeField] private float moveForce = 2000f;
+    [SerializeField] private float brakeForce = 2500f;
+    [SerializeField] private float maxAngleWheel = 45f; 
+    [SerializeField] private float maxSpeed = 90f;
+
+    private float currentSpeed = 0f;
+    private float acceleration = 0f;
+    private Vector3 axisInput;
+
     private void LateUpdate()
     {
         axisInput = InputKey();
+        CheckSpeed();
 
         // инициализируем каждое колесо трансформ и колайдер, передаем каждый трансформ и колайдер колеса все 4 клолеса 
         foreach (WheelsData wheel in wheelsData)
@@ -25,9 +30,19 @@ public class CarMove : MonoBehaviour
     {
         MoveCar(axisInput);
         TurnsCar(axisInput);
-        BrakeCar();
+        BrakeCar(); 
     } 
 
+    private void CheckSpeed()
+    {
+        byte second = 60;
+        byte radius = 2;
+        short meters = 1000;
+        foreach(WheelsData wheel in wheelsData)
+        {
+            currentSpeed = ((radius * Mathf.PI * wheel.wheelCollider.radius) * (wheel.wheelCollider.rpm * second)) / meters;
+        }
+    }
     private Vector3 InputKey()
     {
         // получаем напвравления движения при нажатии на кнопки W,A,S,D
@@ -55,16 +70,13 @@ public class CarMove : MonoBehaviour
     private void BrakeCar()
     {
         // торможение
-        if (Input.GetKey(KeyCode.Space))
+        foreach (WheelsData wheel in wheelsData)
         {
-            foreach (WheelsData wheel in wheelsData)
+            if (Input.GetKey(KeyCode.Space))
             {
                 wheel.wheelCollider.brakeTorque = brakeForce;
             }
-        }
-        else
-        {
-            foreach (WheelsData wheel in wheelsData)
+            else
             {
                 wheel.wheelCollider.brakeTorque = 0;
             }
@@ -76,7 +88,13 @@ public class CarMove : MonoBehaviour
         // движкение вперед и назад
         foreach (WheelsData wheel in wheelsData)
         {
-            wheel.wheelCollider.motorTorque = axis.z * moveForce;
+            if (Mathf.RoundToInt(currentSpeed) < maxSpeed)
+            {
+                acceleration +=  Time.deltaTime;
+                acceleration = Mathf.Clamp(acceleration, 0f, 1f);
+                wheel.wheelCollider.motorTorque = axis.z * (moveForce * acceleration);
+            } 
+            else wheel.wheelCollider.motorTorque = 0;
         }
     } 
     private void UpdateTransformWheels(Transform transform, WheelCollider collider)

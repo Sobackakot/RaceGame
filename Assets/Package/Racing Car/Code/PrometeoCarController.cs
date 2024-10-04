@@ -507,7 +507,7 @@ public class PrometeoCarController : MonoBehaviour
         DriftCarPS();
       }
       // The following part sets the throttle power to 1 smoothly.
-      throttleAxis = throttleAxis + (Time.deltaTime * 3f);
+      throttleAxis +=  (Time.deltaTime * 3f);
       if(throttleAxis > 1f){
         throttleAxis = 1f;
       }

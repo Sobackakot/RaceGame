@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class MCAr : MonoBehaviour
 {
-    public float speedForce = 1500f;
+    public float speedForce = 500f;
     public float turnAngle = 45f;
-    public float brake = 2000f;
+    public float brake = 4000f;
 
 
     public Transform trLeftFron;
@@ -33,11 +33,15 @@ public class MCAr : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
+            collRightFron.brakeTorque = brake;
+            collLeftFron.brakeTorque = brake;
             collLeftBack.brakeTorque = brake;
             collRightBack.brakeTorque = brake;
         }
         else
         {
+            collRightFron.brakeTorque = 0;
+            collLeftFron.brakeTorque = 0;
             collLeftBack.brakeTorque = 0;
             collRightBack.brakeTorque = 0;
         }
